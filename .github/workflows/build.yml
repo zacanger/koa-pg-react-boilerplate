@@ -1,0 +1,19 @@
+name: build
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-tags: true
+
+      - name: build
+        run: |
+          echo skipped for now
+          # t=$(git describe --exact 2>/dev/null || git rev-parse --short=10 HEAD)
+          # docker build -t "example-$t" .
