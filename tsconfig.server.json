@@ -25,9 +25,7 @@
     "target": "ESNext"
   },
   "include": [
-    "api/**/*",
     "types/*",
-    "src/server.ts",
     "src/server"
   ],
   "exclude": [
