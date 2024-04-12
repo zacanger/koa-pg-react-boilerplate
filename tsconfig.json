@@ -1,18 +1,45 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "esnext"
-    ],
-    "esModuleInterop": true,
+    "allowJs": true,
+    "alwaysStrict": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "checkJs": true,
     "declaration": true,
-    "outDir": "./lib",
+    "declarationMap": true,
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
+    "incremental": true,
+    "jsx": "react-jsxdev",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
     "strict": true,
-    "downlevelIteration": true
+    "outDir": "lib/client",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "target": "ES2017",
   },
   "include": [
-    "src"
-  ]
+    "src/client",
+    "types/*",
+    "node_modules/vite/types/*",
+    "src/server/index.ts",
+    "declaration.d.ts",
+    "vite.config.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "lib"
+  ],
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  }
 }

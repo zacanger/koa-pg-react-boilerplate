@@ -17,7 +17,7 @@
       "ESNext"
     ],
     "strict": true,
-    "outDir": "dist/app",
+    "outDir": "lib/server",
     "module": "ESNext",
     "moduleResolution": "Node",
     "skipLibCheck": true,
@@ -27,11 +27,12 @@
   "include": [
     "api/**/*",
     "types/*",
-    "server.ts"
+    "src/server.ts",
+    "src/server"
   ],
   "exclude": [
-    "dist",
-    "src/**/*.tsx"
+    "lib",
+    "src/client"
   ],
   "ts-node": {
     "transpileOnly": true,

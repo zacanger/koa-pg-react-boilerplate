@@ -1,10 +1,8 @@
 import * as fs from 'node:fs'
 import * as path from 'node:path'
-import { fileURLToPath } from 'node:url'
 import express from 'express'
-import api from './server/app.js'
+import api from './server/index.js'
 
-const __dirname: string = path.dirname(fileURLToPath(import.meta.url))
 const isTest = process.env.VITEST
 const isProd = process.env.NODE_ENV === 'production'
 const root: string = process.cwd()
@@ -95,7 +93,7 @@ const createServer = async () => {
 
     } catch (e: any) {
       !isProd && vite.ssrFixStacktrace(e)
-       
+
       console.error(e.stack)
       res.status(500).end(e.stack)
     }
