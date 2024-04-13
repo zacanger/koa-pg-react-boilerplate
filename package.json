@@ -5,7 +5,7 @@
   "private": true,
   "author": "Zac Anger <zac@zacanger.com> (https://zacanger.com)",
   "license": "MIT",
-  "main": "index.js",
+  "main": "lib/server/index.js",
   "scripts": {
     "preversion": "npm t && npm run build",
     "start": "./scripts/start.sh",
@@ -15,7 +15,7 @@
     "test:client": "vitest",
     "test:client:ui": "vitest --ui",
     "test:ts": "tsc --noEmit",
-    "dev": "nodemon --watch src/server --exec tsx src/server/index.ts",
+    "dev": "nodemon --watch src/server --exec tsx src/server/main.ts",
     "build": "npm run clean && npm run build:client && npm run build:server",
     "lint": "sortpack && eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "build:client": "vite build --outDir lib/client",
@@ -44,10 +44,9 @@
     "koa-connect": "2.1.0",
     "koa-cookie": "1.0.0",
     "koa-helmet": "7.0.2",
-    "koa-logger": "3.2.1",
+    "koa-logger-winston": "0.0.2",
     "koa-lowercase": "2.1.4",
     "koa-simple-static": "4.1.2",
-    "koa2-winston": "3.2.0",
     "kysely": "0.27.3",
     "pg": "8.11.5",
     "react": "18.2.0",
@@ -56,7 +55,8 @@
     "react-router-dom": "6.22.3",
     "styled-components": "6.1.8",
     "styled-reset": "4.5.2",
-    "winston": "3.13.0"
+    "winston": "3.13.0",
+    "zeelib": "12.1.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "6.4.2",
@@ -68,7 +68,7 @@
     "@types/koa-bodyparser": "4.3.12",
     "@types/koa-compress": "4.0.6",
     "@types/koa-cookie": "1.0.3",
-    "@types/koa-logger": "3.1.5",
+    "@types/koa-logger-winston": "0.0.6",
     "@types/loadable__component": "5.13.9",
     "@types/node": "20.12.7",
     "@types/pg": "8.11.5",

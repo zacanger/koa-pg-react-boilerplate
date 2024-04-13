@@ -1,13 +1,23 @@
 import type * as Koa from 'koa'
 import Router from '@koa/router'
-import { timeBasedGuid } from './utils'
 import { db } from './db'
+import * as pkg from '../../package.json'
+import { getFreeMemory, getHashFromDate } from 'zeelib'
 
 export const apiRoutes = new Router({ prefix: '/api' })
 
-apiRoutes.get('/guid', async (ctx: Koa.Context) => {
+apiRoutes.get('/diag', async (ctx: Koa.Context) => {
   ctx.type = 'application/json'
-  ctx.body = JSON.stringify(timeBasedGuid())
+  ctx.body = {
+    version: pkg.version,
+    name: pkg.name,
+    free: getFreeMemory(),
+  }
+})
+
+apiRoutes.get('/hash', async (ctx: Koa.Context) => {
+  ctx.type = 'application/json'
+  ctx.body = JSON.stringify(getHashFromDate())
 })
 
 apiRoutes.get('/params-example/:anything', async (ctx: Koa.Context) => {

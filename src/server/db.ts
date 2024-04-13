@@ -9,7 +9,6 @@ export interface Schema {
   }
 }
 
-
 const getDb = () => {
   const dialect = new PostgresDialect({
     pool: new pg.Pool({

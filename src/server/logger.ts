@@ -1,38 +1,22 @@
 import type * as Koa from 'koa'
 import * as winston from 'winston'
-import koaLogger from 'koa-logger'
-// @ts-expect-error no types
-import { logger as koaWinston } from 'koa2-winston'
+import * as koaWinston from 'koa-logger-winston'
+import * as pkg from '../../package.json'
 
-// provide from env or pkg or whatever
-const appName = 'app'
-const version = '0.0.1'
-const isProd = process.env.NODE_ENV === 'production'
+const isLive = (): boolean =>
+  !!(process.env.KUBERNETES_SERVICE_HOST || process.env.GITHUB_SHA)
 
-// usually 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace'
-// though it could depend on implementation
-const logLevel = process.env.LOG_LEVEL ?? 'info'
+const defaultLogLevel = isLive() ? 'info' : 'debug'
 
 export const log = winston.createLogger({
-  level: logLevel,
-  format: winston.format.combine(
-    winston.format((info: any) => {
-      // provide from env, pkg, or whatever
-      info.version = version
-      info.app = appName
-      return info
-    })(),
-
-    winston.format((info: any) => {
-      if (typeof info?.req?.header?.authorization === 'string') {
-        info.req.header.authorization = 'REDACTED'
-      }
-      return info
-    })(),
-
-    isProd ? winston.format.json() : winston.format.cli()
-  ),
-  transports: [new winston.transports.Console()]
+  level: (process.env.LOG_LEVEL || defaultLogLevel),
+  format: isLive() ? winston.format.json() : winston.format.cli(),
+  defaultMeta: { service: pkg.name, version: pkg.version },
+  transports: [
+    new winston.transports.Console({
+      format: isLive() ? winston.format.json() : winston.format.cli(),
+    }),
+  ],
 })
 
 const setLogger = (app: Koa): void => {
@@ -44,22 +28,11 @@ const setLogger = (app: Koa): void => {
   )
 }
 
-export default (app: Koa): void => {
+export const logger = (app: Koa): void => {
   app.on('error', (err: Error): void => {
     log.error(err)
   })
 
-  if (isProd) {
-    if (['info', 'debug', 'trace'].includes(logLevel)) {
-      app.use(
-        koaWinston({
-          logger: log
-        })
-      )
-    }
-  } else {
-    app.use(koaLogger())
-  }
-
+  app.use(koaWinston(log))
   setLogger(app)
 }

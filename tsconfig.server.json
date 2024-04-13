@@ -25,11 +25,10 @@
     "target": "ESNext"
   },
   "include": [
-    "types/*",
     "src/server"
   ],
   "exclude": [
-    "lib",
+    "./lib",
     "src/client"
   ],
   "ts-node": {

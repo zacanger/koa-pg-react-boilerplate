@@ -26,7 +26,6 @@
   },
   "include": [
     "src/client",
-    "types/*",
     "node_modules/vite/types/*",
     "src/server/index.ts",
     "declaration.d.ts",

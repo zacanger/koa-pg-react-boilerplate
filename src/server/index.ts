@@ -1,36 +1,18 @@
-import * as http from 'node:http'
-import cluster from 'node:cluster'
-import Koa from 'koa'
-import { log } from './logger'
-import { setupDb } from './db'
-import { apiRoutes } from './routes'
-import { mid } from './mid'
+import http from 'node:http'
+import dnsCache from 'dnscache'
+import cluster from 'boring-cluster'
 
-export const app: Koa = new Koa()
-const isTest = process.env.NODE_ENV === 'test' || process.env.VITEST
-const port = process.env.PORT ?? 3000
+// @ts-expect-error yes it does
+http.globalAgent.keepAlive = true
+// @ts-expect-error yes it does
+http.globalAgent.keepAliveMsecs = 60000
 
-void mid(app)
-app.use(apiRoutes.routes())
+process.on('unhandledRejection', console.error)
 
-const main = async (): Promise<void> => {
-  await setupDb()
-  const handler = app.callback()
-  const server = http.createServer((req, res) => {
-    void handler(req, res)
-  })
+dnsCache({
+  enable: true,
+  ttl: 300,
+  cachesize: 1000
+})
 
-  server.listen(port, () => {
-    log.info(`example ${cluster?.worker?.id ?? 0} listening on ${port}`)
-  })
-
-  process.on('SIGTERM', () => {
-    server.close(() => {
-      process.exit(0)
-    })
-  })
-}
-
-if (!isTest) {
-  void main()
-}
+cluster('main')
