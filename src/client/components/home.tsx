@@ -1,39 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import { useLoaderData } from 'react-router-dom'
-import useHelmet from '../utils/use-helmet'
+import { useHelmet } from '../utils/use-helmet'
 
-const Home: React.FC<HomeProps> = (_props) => {
-
+export const Home: React.FC<Record<string, any>> = (_props) => {
   const [count, setCount] = useState(0)
-  // const data = useLoaderData()
-  useLoaderData()
-
   const helmet = useHelmet()
 
   useEffect(() => {
-    helmet.setTitle('Home Page - Vite SSR + React')
+    helmet.setTitle('Home')
   }, [helmet])
 
   return (
     <>
-      <h1>Vite + React</h1>
-      <div className="card">
+      <h1>Hello</h1>
+      <div>
         <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+          you've clicked {count} times
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
-
-interface HomeProps {
-  [key: string]: any
-}
-
-export default Home

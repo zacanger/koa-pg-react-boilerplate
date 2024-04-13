@@ -14,7 +14,7 @@
     "test:server": "node --test -r ts-node/register src/**/*.test.ts",
     "test:client": "echo todo",
     "test:ts": "tsc --noEmit",
-    "dev": "nodemon --watch src/server --exec tsx server/src/index.ts",
+    "dev": "nodemon --watch src/server --exec tsx src/server/index.ts",
     "build": "npm run clean && npm run build:client && npm run build:server",
     "lint": "sortpack && eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "build:client": "vite build --outDir lib/client",

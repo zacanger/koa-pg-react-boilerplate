@@ -1,19 +1,16 @@
 :root {
-  --primary: #646cff;
-  --bgDark: #242424;
-  --buttonBg: #1a1a1a;
-  --buttonBgLight: #f9f9f9;
-  --defaultTextLight: rgba(255, 255, 255, 0.87);
-  --defaultTextDark: #213547;
-  --white: #ffffff;
+  --mainDark: #121212;
+  --mainLight: #ededed;
+  --primary: #1923da;
+  --buttonBg: #1e9459;
 
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: monospace;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: --defaultTextLight;
-  background-color: --bgDark;
+  color: var(--mainLight);
+  background-color: var(--mainDark);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -24,7 +21,7 @@
 
 a {
   font-weight: 500;
-  color: --primary;
+  color: var(--primary);
   text-decoration: inherit;
 }
 
@@ -46,12 +43,13 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: --buttonBg;
+  background-color: var(--buttonBg);
+  color: var(--mainDark);
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: --primary;
+  border-color: var(--primary);
 }
 button:focus,
 button:focus-visible {
@@ -65,13 +63,13 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: --defaultTextDark;
-    background-color: --white;
+    color: var(--mainDark);
+    background-color: var(--mainLight);
   }
   a:hover {
-    color: --primary;
+    color: var(--primary);
   }
   button {
-    background-color: --buttonBgLight;
+    background-color: var(--buttonBg);
   }
 }

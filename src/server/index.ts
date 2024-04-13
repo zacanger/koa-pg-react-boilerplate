@@ -13,6 +13,8 @@ import serve from 'koa-simple-static'
 import { timeBasedGuid } from './utils'
 import logger, { log } from './logger'
 import * as pg from 'pg'
+import { Kysely, PostgresDialect } from 'kysely'
+import type { Generated } from 'kysely'
 
 export const app: Koa = new Koa()
 
@@ -20,31 +22,45 @@ const isTest = process.env.NODE_ENV === 'test' || process.env.VITEST
 const port = process.env.PORT ?? 3000
 const router = new Router()
 const root: string = process.cwd()
-const pgUser = process.env.POSTGRES_USER ?? 'username'
-const pgPass = process.env.POSTGRES_PASSWORD ?? 'password'
-const pgHost = process.env.POSTGRES_HOST ?? 'db'
-const pgDb = process.env.POSTGRES_DB ?? 'database'
-const pgPort = parseInt(process.env.POSTGRES_PORT ?? '5432', 10)
+
 const isProd = process.env.NODE_ENV === 'production'
 
 const indexHtml = isProd
   ? fs.readFileSync(path.resolve(root, 'index.html'), 'utf-8')
   : ''
 
-const fakePg = {
-  query: async (..._args: any[]): Promise<null> => null,
-  connect: async (): Promise<null> => null
+interface Schema {
+  boilerplate: {
+    stuff: string
+    id: Generated<number>
+  }
 }
 
-const db = isTest
-  ? fakePg
-  : new pg.Client({
-    database: pgDb,
-    host: pgHost,
-    password: pgPass,
-    port: pgPort,
-    user: pgUser
+const getDb = () => {
+  const dialect = new PostgresDialect({
+    pool: new pg.Pool({
+      password: process.env.POSTGRES_PASSWORD ?? 'password',
+      database: process.env.POSTGRES_DB ?? 'database',
+      host: process.env.POSTGRES_HOST ?? 'db',
+      user: process.env.POSTGRES_USER ?? 'username',
+      port: parseInt(process.env.POSTGRES_PORT ?? '5432', 10),
+      max: 10,
+    })
   })
+
+  return new Kysely<Schema>({
+    dialect,
+  })
+}
+
+const db = getDb()
+
+const setupDb = async (): Promise<void> => {
+  await db.schema.createTable('boilerplate')
+    .addColumn('id', 'serial', (cb) => cb.primaryKey())
+    .addColumn('stuff', 'jsonb', (cb) => cb.notNull())
+    .execute()
+}
 
 router.get('/guid', async (ctx: Koa.Context) => {
   ctx.type = 'application/json'
@@ -53,11 +69,10 @@ router.get('/guid', async (ctx: Koa.Context) => {
 
 router.post('/data', async (ctx: Koa.Context) => {
   try {
-    await db.query(
-      'insert into boilerplate (stuff) values($1)',
-      [JSON.stringify(ctx.request.body)]
-    )
-
+    await db
+      .insertInto('boilerplate')
+      .values({ stuff: JSON.stringify(ctx.request.body) })
+      .executeTakeFirst()
     ctx.type = 'application/json'
     ctx.body = { ok: 'yup' }
   } catch (e) {
@@ -70,7 +85,10 @@ router.get('/params-example/:anything', async (ctx: Koa.Context) => {
   ctx.body = JSON.stringify(ctx.params.anything)
 })
 
-const errorHandler = async (ctx: Koa.Context, next: Koa.Next): Promise<void> => {
+const errorHandler = async (
+  ctx: Koa.Context,
+  next: Koa.Next
+): Promise<void> => {
   try {
     await next()
   } catch (err: any) {
@@ -89,24 +107,40 @@ if (isProd) app.use(serve({ dir: resolve(__dirname, '..', 'client') }))
 app.use(errorHandler)
 logger(app)
 
-let vite: any
 app.use(async (ctx: Koa.Context) => {
+  let vite: any
   try {
     const url = ctx.originalUrl
 
     let template
     let render
+    if (!isProd) {
+      vite = await (await import('vite')).createServer({
+        root,
+        logLevel: isTest ? 'error' : 'info',
+        server: {
+          middlewareMode: true,
+          watch: {
+            usePolling: true,
+            interval: 100
+          }
+        },
+        appType: 'custom'
+      })
+
+      app.use(vite.middlewares)
+    }
 
     if (!isProd) {
-      template = fs.readFileSync(path.resolve(root, 'index.html'), 'utf8')
+      template = await fs.promises.readFile(path.resolve(root, 'index.html'), 'utf8')
       template = await vite.transformIndexHtml(url, template)
-      render = (await vite.ssrLoadModule('/src/entry-server.tsx')).default.render
+      render = (await vite.ssrLoadModule(resolve(root, '/src/client/entry-server.tsx'))).render
     }
 
     if (isProd) {
       template = indexHtml
       // @ts-expect-error TODO:
-      render = (await import('../entry/entry-server.js')).default.render
+      render = (await import('../entry/entry-server.js')).render
     }
 
     const context: any = {}
@@ -117,7 +151,6 @@ app.use(async (ctx: Koa.Context) => {
       ctx.status = 301
       ctx.url = context.url
       return
-
     }
 
     let html = template.replace('<!--app-html-->', appHtml.html)
@@ -142,32 +175,6 @@ app.use(async (ctx: Koa.Context) => {
     ctx.body = e.stack
   }
 })
-if (!isProd) {
-  vite = await (await import('vite')).createServer({
-    root,
-    logLevel: isTest ? 'error' : 'info',
-    server: {
-      middlewareMode: true,
-      watch: {
-        usePolling: true,
-        interval: 100
-      }
-    },
-    appType: 'custom'
-  })
-
-  app.use(vite.middlewares)
-}
-
-const setupDb = async (): Promise<void> => {
-  await db.connect()
-  await db.query(`
-   create table if not exists boilerplate(
-     id serial,
-     stuff jsonb
-   )
-  `)
-}
 
 const main = async (): Promise<void> => {
   await setupDb()
@@ -188,5 +195,5 @@ const main = async (): Promise<void> => {
 }
 
 if (!isTest) {
-  main()
+  void main()
 }

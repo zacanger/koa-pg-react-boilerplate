@@ -11,7 +11,7 @@ spec:
       paths:
       - backend:
           serviceName: app
-          servicePort: 4000
+          servicePort: 3000
   tls:
   - hosts:
     - app.com
@@ -23,8 +23,8 @@ metadata:
   name: app
 spec:
   ports:
-  - port: 4000
-    targetPort: 4000
+  - port: 3000
+    targetPort: 3000
     protocol: TCP
   selector:
     com.example: app
@@ -56,7 +56,7 @@ spec:
             memory: 1Gi
         name: app
         ports:
-        - containerPort: 4000
+        - containerPort: 3000
         env:
           - name: NODE_ENV
             value: production

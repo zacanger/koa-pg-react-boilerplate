@@ -2,7 +2,7 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
 
-const Layout: React.FC<LayoutProps> = (_props) => {
+export const Layout: React.FC<Record<string, any>> = (_props) => {
   return (
     <>
       <nav>
@@ -13,9 +13,6 @@ const Layout: React.FC<LayoutProps> = (_props) => {
           <li>
             <NavLink to={'about'}>About</NavLink>
           </li>
-          <li>
-            <NavLink to={'contact'}>Contact</NavLink>
-          </li>
         </ul>
       </nav>
 
@@ -23,9 +20,3 @@ const Layout: React.FC<LayoutProps> = (_props) => {
     </>
   )
 }
-
-interface LayoutProps {
-  [key: string]: any
-}
-
-export default Layout

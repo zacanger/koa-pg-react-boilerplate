@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 
-const helmetContext = React.createContext({})
+// eslint-disable-next-line react-refresh/only-export-components
+export const helmetContext = React.createContext({})
 
-const HelmetProvider = (props: any) => {
-
+export const HelmetProvider = (props: any) => {
   const [title, setTitle] = useState('Hello')
   const [meta, setMeta] = useState([])
   const [link, setLink] = useState([])
@@ -32,15 +32,11 @@ const HelmetProvider = (props: any) => {
         {script && script.map((s: any) => <script {...s} />)}
         {style && (typeof style === 'string') && <style>{style}</style>}
         {style && Array.isArray(style) &&
-          style.map((s: any) => <style>{s}</style>
-          )}
+          style.map((s: any) => <style>{s}</style>)
+        }
       </Helmet>
 
       {props.children}
     </helmetContext.Provider>
   )
 }
-
-// eslint-disable-next-line react-refresh/only-export-components
-export { helmetContext }
-export default HelmetProvider

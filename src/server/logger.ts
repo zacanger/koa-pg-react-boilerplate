@@ -1,5 +1,4 @@
-import * as crypto from 'node:crypto'
-import * as Koa from 'koa'
+import type * as Koa from 'koa'
 import * as winston from 'winston'
 import koaLogger from 'koa-logger'
 // @ts-expect-error no types
@@ -13,17 +12,6 @@ const isProd = process.env.NODE_ENV === 'production'
 // usually 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace'
 // though it could depend on implementation
 const logLevel = process.env.LOG_LEVEL ?? 'info'
-
-const setReqId = async (ctx: Koa.Context, next: Koa.Next): Promise<void> => {
-  const semiRandomString = crypto.randomBytes(8).toString('hex')
-  const reqId = `${semiRandomString}-${appName}-${version}`
-  // @ts-expect-error
-  ctx.request.reqId = reqId
-  ctx.response.set('x-trace-id', reqId)
-  const logFields = { reqId }
-  ctx.log = ctx.log.child(logFields)
-  return await next()
-}
 
 export const log = winston.createLogger({
   level: logLevel,
@@ -62,7 +50,6 @@ export default (app: Koa): void => {
   })
 
   if (isProd) {
-    app.use(setReqId)
     if (['info', 'debug', 'trace'].includes(logLevel)) {
       app.use(
         koaWinston({

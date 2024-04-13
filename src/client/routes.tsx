@@ -1,13 +1,14 @@
-/* eslint-disable react-refresh/only-export-components */
 import type { RouteObject } from 'react-router-dom'
 import loadable from '@loadable/component'
-import Layout from './components/layout'
-import Home from './components/home'
-import homeLoader from './utils/home-loader'
+import { Layout } from './components/layout'
+import { Home } from './components/home'
+import { homeLoader } from './utils/home-loader'
 
-const About = loadable(() => import('./components/about'), { fallback: <div>Loading...</div> })
+// eslint-disable-next-line react-refresh/only-export-components
+const About = loadable(() =>
+  import('./components/about').then(({ About }) => ({ default: About })), { fallback: <div>Loading...</div> })
 
-const routes: RouteObject[] = [
+export const routes: RouteObject[] = [
   {
     path: '/',
     element: <Layout />,
@@ -23,5 +24,3 @@ const routes: RouteObject[] = [
     ]
   }
 ]
-
-export default routes

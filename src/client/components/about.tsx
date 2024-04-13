@@ -1,8 +1,7 @@
-import useHelmet from '../utils/use-helmet'
 import React, { useEffect } from 'react'
+import { useHelmet } from '../utils/use-helmet'
 
-const About: React.FC<AboutProps> = (_props) => {
-
+export const About: React.FC<Record<string, any>> = (_props) => {
   const helmet = useHelmet()
 
   useEffect(() => {
@@ -10,14 +9,6 @@ const About: React.FC<AboutProps> = (_props) => {
   },[helmet])
 
   return (
-    <>
-      <h1>About Us</h1>
-    </>
+    <h1>About Page</h1>
   )
 }
-
-interface AboutProps {
-  [key: string]: any
-}
-
-export default About

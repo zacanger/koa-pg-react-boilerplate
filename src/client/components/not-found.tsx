@@ -1,16 +1,4 @@
 import React from 'react'
 
-const NotFound: React.FC<NotFoundProps> = (_props) => {
-
-  return (
-    <>
-      <h1>404 - Not Found</h1>
-    </>
-  )
-}
-
-interface NotFoundProps {
-  [key: string]: any
-}
-
-export default NotFound
+export const NotFound: React.FC<Record<string, any>> = (_props) =>
+  <h1>This is not a page!</h1>
