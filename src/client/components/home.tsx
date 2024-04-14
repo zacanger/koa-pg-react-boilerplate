@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { useHelmet } from '../utils/use-helmet'
 import styled from 'styled-components'
+import { useHelmet } from '../utils/use-helmet'
 
 const Button = styled.button`
   border-radius: 8px;

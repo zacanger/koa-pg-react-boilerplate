@@ -1,5 +1,5 @@
-import { helmetContext } from './helmet-context'
 import { useContext } from 'react'
+import { helmetContext } from './helmet-context'
 
 type helmetContextType = {
   title: string

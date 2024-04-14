@@ -1,8 +1,8 @@
-import type { RouteObject } from 'react-router-dom'
 import loadable from '@loadable/component'
 import { Layout } from './components/layout'
 import { Home } from './components/home'
 import { homeLoader } from './utils/home-loader'
+import type { RouteObject } from 'react-router-dom'
 
 // eslint-disable-next-line react-refresh/only-export-components
 const AnotherPage = loadable(() =>

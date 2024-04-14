@@ -1,7 +1,6 @@
 # TODO:
 
 * Finish testing
-* Add linting
 * Check the whole run/build/deploy process
 
 # koa-pg-react-boilerplate

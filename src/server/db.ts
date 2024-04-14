@@ -1,6 +1,6 @@
-import type { Generated } from 'kysely'
 import { Kysely, PostgresDialect } from 'kysely'
 import * as pg from 'pg'
+import type { Generated } from 'kysely'
 
 export interface Schema {
   boilerplate: {

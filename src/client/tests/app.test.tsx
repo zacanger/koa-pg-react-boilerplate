@@ -1,9 +1,9 @@
 import '../utils/test-utils'
+import { describe, it } from 'node:test'
+import * as assert from 'node:assert'
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { describe, it } from 'node:test'
-import * as assert from 'node:assert'
 import { App } from '../app'
 
 void describe('example test', async () => {

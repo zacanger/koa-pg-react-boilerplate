@@ -1,8 +1,8 @@
-import type * as Koa from 'koa'
 import Router from '@koa/router'
-import { db } from './db'
-import * as pkg from '../../package.json'
 import { getFreeMemory, getHashFromDate } from 'zeelib'
+import * as pkg from '../../package.json'
+import { db } from './db'
+import type * as Koa from 'koa'
 
 export const apiRoutes = new Router({ prefix: '/api' })
 

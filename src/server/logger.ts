@@ -1,7 +1,7 @@
-import type * as Koa from 'koa'
 import * as winston from 'winston'
 import koaWinston from 'koa-logger-winston'
 import * as pkg from '../../package.json'
+import type * as Koa from 'koa'
 
 const isLive = (): boolean =>
   !!(process.env.KUBERNETES_SERVICE_HOST || process.env.GITHUB_SHA)

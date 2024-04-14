@@ -1,10 +1,10 @@
 import * as http from 'node:http'
 import Koa from 'koa'
+import dnsCache from 'dnscache'
 import { log } from './logger'
 import { setupDb } from './db'
 import { apiRoutes } from './routes'
 import { mid } from './mid'
-import dnsCache from 'dnscache'
 
 export const app: Koa = new Koa()
 const isTest = process.env.NODE_ENV === 'test'
