@@ -7,21 +7,22 @@
   "license": "MIT",
   "main": "lib/server/index.js",
   "scripts": {
-    "preversion": "npm t && npm run build",
-    "start": "./scripts/start.sh",
-    "test": "run-s -s test:ts test:lint test:node",
-    "test:build": "run-s lint test:ts test:server test:client",
-    "test:server": "node --test -r ts-node/register src/**/*.test.ts",
-    "test:client": "vitest",
-    "test:client:ui": "vitest --ui",
-    "test:ts": "tsc --noEmit",
-    "dev": "nodemon --watch src/server --exec tsx src/server/main.ts",
     "build": "npm run clean && npm run build:client && npm run build:server",
-    "lint": "sortpack && eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "build:client": "vite build --outDir lib/client",
     "build:server": "tsc -p tsconfig.server.json && vite build --ssr src/client/entry-server.tsx --outDir lib/entry",
     "clean": "rimraf lib",
-    "serve": "NODE_ENV=production node ./lib/server"
+    "dev": "nodemon --watch src/server --exec tsx src/server/main.ts",
+    "lint": "sortpack && eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "prebuild": "npm t",
+    "preversion": "npm t && npm run build",
+    "serve": "NODE_ENV=production node ./lib/server",
+    "start": "./scripts/start.sh",
+    "test": "run-s -s test:build test:lint test:node",
+    "test:build": "run-s lint test:ts test:server test:client",
+    "test:client": "vitest",
+    "test:client:ui": "vitest --ui",
+    "test:server": "node --test -r ts-node/register src/**/*.test.ts",
+    "test:ts": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,9 @@
     "microservice",
     "typescript"
   ],
+  "engines": {
+    "node": ">=21.0.0"
+  },
   "dependencies": {
     "@koa/router": "12.0.1",
     "@loadable/component": "5.16.3",
@@ -64,11 +68,11 @@
     "@testing-library/user-event": "14.5.2",
     "@types/compression": "1.7.5",
     "@types/koa": "2.15.0",
-    "@types/koa__router": "12.0.4",
     "@types/koa-bodyparser": "4.3.12",
     "@types/koa-compress": "4.0.6",
     "@types/koa-cookie": "1.0.3",
     "@types/koa-logger-winston": "0.0.6",
+    "@types/koa__router": "12.0.4",
     "@types/loadable__component": "5.13.9",
     "@types/node": "20.12.7",
     "@types/pg": "8.11.5",
@@ -100,8 +104,5 @@
     "vike": "0.4.168",
     "vite": "5.2.8",
     "vitest": "1.5.0"
-  },
-  "engines": {
-    "node": ">=21.0.0"
   }
 }
