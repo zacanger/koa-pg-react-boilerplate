@@ -1,5 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { useHelmet } from '../utils/use-helmet'
+import styled from 'styled-components'
+
+const Button = styled.button`
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  background-color: var(--primaryDark);
+  color: var(--mainLight);
+  cursor: pointer;
+  transition: border-color 0.25s;
+  &:hover {
+    border-color: var(--primaryLight);
+  }
+`
 
 export const Home: React.FC<Record<string, any>> = (_props) => {
   const [count, setCount] = useState(0)
@@ -11,11 +25,11 @@ export const Home: React.FC<Record<string, any>> = (_props) => {
 
   return (
     <>
-      <h1>Hello</h1>
+      <h1>Home</h1>
       <div>
-        <button onClick={() => setCount((count) => count + 1)}>
+        <Button onClick={() => setCount((count) => count + 1)}>
           you've clicked {count} times
-        </button>
+        </Button>
       </div>
     </>
   )
