@@ -8,11 +8,4 @@ export default defineConfig({
   ssr: {
     noExternal: ['react-helmet-async'],
   },
-  test: {
-    include: ['src/client/*.test.{ts,tsx}'],
-    exclude: ['**/node_modules/**', 'src/server/**', 'lib/**'],
-    globals: true,
-    environment: 'jsdom',
-    css: false,
-  },
 })

@@ -7,7 +7,7 @@ import { apiRoutes } from './routes'
 import { mid } from './mid'
 
 export const app: Koa = new Koa()
-const isTest = process.env.NODE_ENV === 'test' || process.env.VITEST
+const isTest = process.env.NODE_ENV === 'test'
 const port = process.env.PORT ?? 3000
 
 void mid(app)
