@@ -1,9 +1,8 @@
-# TODO
+# TODO:
 
-* simplify
-* swap express for koa
-* add kysely
-* test
+* Finish testing
+* Add linting
+* Check the whole run/build/deploy process
 
 # koa-pg-react-boilerplate
 

@@ -4,30 +4,27 @@
     "alwaysStrict": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
+    "baseUrl": "./src/server",
     "checkJs": true,
     "declaration": true,
     "declarationMap": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
-    "jsx": "react-jsxdev",
     "lib": [
-      "DOM",
-      "DOM.Iterable",
       "ESNext"
     ],
     "strict": true,
-    "outDir": "lib/server",
-    "module": "ESNext",
+    "outDir": "lib",
+    "module": "commonjs",
     "moduleResolution": "Node",
     "skipLibCheck": true,
     "sourceMap": false,
-    "target": "ESNext"
+    "target": "ES2019",
   },
   "include": [
     "declaration.d.ts",
-    "src/server"
+    "src/server/**/*"
   ],
   "exclude": [
     "./lib",

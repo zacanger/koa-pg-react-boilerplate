@@ -2,13 +2,12 @@ import { describe, it, beforeEach, afterEach } from 'node:test'
 import * as assert from 'node:assert'
 import * as http from 'node:http'
 import request from 'supertest'
-import { app } from '../main'
+import { app } from '../'
 
 void describe('example', async () => {
   let server: http.Server | null = null
 
   beforeEach(() => {
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     server = http.createServer(app.callback())
   })
 

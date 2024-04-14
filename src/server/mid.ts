@@ -32,7 +32,7 @@ export const setupClientServer = async (
 ) => {
   const router = new Router()
   if (isProd) {
-    app.use(serve({ dir: resolve(__dirname, '..', 'client') }))
+    app.use(serve({ dir: resolve(__dirname, '..', '..', 'client') }))
   } else {
     const viteDevMiddleware = (await vite.createServer({
       root,
