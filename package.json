@@ -11,7 +11,7 @@
     "build:client": "vite build --outDir lib/client",
     "build:server": "tsc -p tsconfig.server.json",
     "clean": "rimraf lib",
-    "dev": "nodemon --watch src/server --exec tsx src/server/main.ts",
+    "dev": "nodemon --watch src/server --exec tsx src/server/index.ts",
     "prebuild": "npm t",
     "preversion": "run-s test build",
     "serve": "NODE_ENV=production node ./lib/server",
