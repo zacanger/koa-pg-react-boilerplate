@@ -2,6 +2,7 @@
   "compilerOptions": {
     "allowJs": true,
     "alwaysStrict": true,
+    "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "checkJs": true,
@@ -25,6 +26,7 @@
     "target": "ESNext"
   },
   "include": [
+    "declaration.d.ts",
     "src/server"
   ],
   "exclude": [

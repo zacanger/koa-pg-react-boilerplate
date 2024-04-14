@@ -38,9 +38,6 @@ export const createFetchRequest = (ctx: Koa.Context): Request => {
   const url = new URL(ctx.originalUrl || ctx.url, origin)
 
   const controller = new AbortController()
-  // ctx.req.on('close', () => controller.abort())
-  // ctx.req.on('aborted', () => controller.abort())
-
   const headers = new Headers()
 
   for (const [key, values] of Object.entries(ctx.header)) {

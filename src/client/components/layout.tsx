@@ -4,34 +4,33 @@ import { NavLink } from 'react-router-dom'
 import { Reset } from 'styled-reset'
 import styled from 'styled-components'
 
-const Nav = styled.nav`
-ul {
+const Li = styled.li`
+  display: inline-block;
+  margin: 0 1em;
+`
+
+const Ul = styled.ul`
   list-style: none;
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow-x: scroll;
-}
-
-> li {
-  display: inline-block;
-}
 `
 
 export const Layout: React.FC<Record<string, any>> = (_props) => {
   return (
     <>
       <Reset />
-      <Nav>
-        <ul>
-          <li>
+      <nav>
+        <Ul>
+          <Li>
             <NavLink to={'/'}>Home</NavLink>
-          </li>
-          <li>
-            <NavLink to={'about'}>About</NavLink>
-          </li>
-        </ul>
-      </Nav>
+          </Li>
+          <Li>
+            <NavLink to={'another'}>Another Page</NavLink>
+          </Li>
+        </Ul>
+      </nav>
 
       <Outlet />
     </>

@@ -1,6 +1,6 @@
 import type * as Koa from 'koa'
 import * as winston from 'winston'
-import * as koaWinston from 'koa-logger-winston'
+import koaWinston from 'koa-logger-winston'
 import * as pkg from '../../package.json'
 
 const isLive = (): boolean =>

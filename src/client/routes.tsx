@@ -5,8 +5,8 @@ import { Home } from './components/home'
 import { homeLoader } from './utils/home-loader'
 
 // eslint-disable-next-line react-refresh/only-export-components
-const About = loadable(() =>
-  import('./components/about').then(({ About }) => ({ default: About })), { fallback: <div>Loading...</div> })
+const AnotherPage = loadable(() =>
+  import('./components/another-component').then(({ Another }) => ({ default: Another })), { fallback: <div>Loading...</div> })
 
 export const routes: RouteObject[] = [
   {
@@ -18,8 +18,8 @@ export const routes: RouteObject[] = [
         element: <Home />,
         loader: homeLoader
       }, {
-        path: 'about',
-        element: <About />,
+        path: 'another',
+        element: <AnotherPage />,
       },
     ]
   }

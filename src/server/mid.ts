@@ -8,7 +8,7 @@ import helmet from 'koa-helmet'
 import lower from 'koa-lowercase'
 import Router from '@koa/router'
 import serve from 'koa-simple-static'
-import { renderPage } from 'vike'
+import { renderPage } from 'vike/server'
 import connect from 'koa-connect'
 import vite from 'vite'
 

@@ -1,7 +1,8 @@
 :root {
   --mainDark: #121212;
   --mainLight: #ededed;
-  --primary: #1923da;
+  --primaryLight: #8085e4;
+  --primaryDark: #1923da;
   --buttonBg: #1e9459;
 
   font-family: monospace;
@@ -21,8 +22,14 @@
 
 a {
   font-weight: 500;
-  color: var(--primary);
-  text-decoration: inherit;
+  color: var(--primaryLight);
+  text-decoration: none;
+}
+
+a:hover {
+  font-weight: 500;
+  color: var(--primaryDark);
+  text-decoration: none;
 }
 
 body {
@@ -40,20 +47,13 @@ button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
   background-color: var(--buttonBg);
   color: var(--mainDark);
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: var(--primary);
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  border-color: var(--primaryLight);
 }
 
 #app {
@@ -66,8 +66,11 @@ button:focus-visible {
     color: var(--mainDark);
     background-color: var(--mainLight);
   }
+  a {
+    color: var(--primaryDark);
+  }
   a:hover {
-    color: var(--primary);
+    color: var(--primaryLight);
   }
   button {
     background-color: var(--buttonBg);
