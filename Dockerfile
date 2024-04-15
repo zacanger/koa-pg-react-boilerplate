@@ -2,7 +2,7 @@ FROM node:21-alpine as build
 WORKDIR /app
 COPY --chown=node:node . .
 RUN npm ci && \
-    npm run build && \
+    npm run build --ignore-scripts && \
     rm -rf node_modules && \
     npm ci --production --no-optional
 

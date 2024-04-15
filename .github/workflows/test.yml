@@ -13,5 +13,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: latest
+      - run: ./scripts/lint-shell-docker.sh
       - run: npm ci
       - run: npm run build
