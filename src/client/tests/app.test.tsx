@@ -1,22 +1,21 @@
-import '../utils/test-utils'
-import { describe, it } from 'node:test'
+import 'global-jsdom/register'
+import { afterEach, describe, it } from 'node:test'
 import * as assert from 'node:assert'
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { cleanup, render, screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { App } from '../app'
+import { Home } from '../components/home'
 
 void describe('example test', async () => {
-  await it('renders', async () => {
-    render(<App />)
-    const b = screen.getByRole('button')
-    assert.ok(b.innerText.includes("you've clicked 0 times"))
+  afterEach(() => {
+    cleanup()
   })
 
-  await it('increments', async () => {
-    render(<App />)
+  await it('renders home', async () => {
+    render(<Home />)
     const b = screen.getByRole('button')
+    assert.ok(b.innerHTML.includes("you've clicked 0 times"))
     await userEvent.click(b)
-    assert.ok(b.innerText.includes("you've clicked 1 times"))
+    assert.ok(b.innerHTML.includes("you've clicked 1 times"))
   })
 })

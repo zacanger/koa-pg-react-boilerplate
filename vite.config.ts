@@ -6,6 +6,5 @@ export default defineConfig({
     react()
   ],
   ssr: {
-    noExternal: ['react-helmet-async'],
   },
 })

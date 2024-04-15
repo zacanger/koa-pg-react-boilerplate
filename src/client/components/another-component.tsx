@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useHelmet } from '../utils/use-helmet'
 
 export const Another: React.FC<Record<string, any>> = (_props) => {
   const [dateHash, setDateHash] = useState('')
-  const helmet = useHelmet()
 
   useEffect(() => {
-    helmet.setTitle('Another Page')
-  },[helmet])
+    document.title = 'Another Page'
+  })
 
   useEffect(() => {
     void fetch('/api/hash')
@@ -15,9 +13,5 @@ export const Another: React.FC<Record<string, any>> = (_props) => {
       .then(setDateHash)
   }, [])
 
-  return (
-    <>
-      <h1>hello, date hash is {dateHash}</h1>
-    </>
-  )
+  return <h1>hello, date hash is {dateHash}</h1>
 }

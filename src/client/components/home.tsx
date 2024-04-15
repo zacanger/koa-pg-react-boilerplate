@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { useHelmet } from '../utils/use-helmet'
 
 const Button = styled.button`
   border-radius: 8px;
@@ -17,11 +16,10 @@ const Button = styled.button`
 
 export const Home: React.FC<Record<string, any>> = (_props) => {
   const [count, setCount] = useState(0)
-  const helmet = useHelmet()
 
   useEffect(() => {
-    helmet.setTitle('Home')
-  }, [helmet])
+    document.title = 'Home'
+  })
 
   return (
     <>
