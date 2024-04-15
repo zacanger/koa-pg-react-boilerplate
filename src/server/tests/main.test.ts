@@ -4,7 +4,7 @@ import * as http from 'node:http'
 import request from 'supertest'
 import { app } from '../'
 
-void describe.skip('example', async () => {
+void describe('example', async () => {
   let server: http.Server | null = null
 
   beforeEach(() => {
@@ -15,6 +15,12 @@ void describe.skip('example', async () => {
     server!.close()
   })
 
+  await it('/api/diag', async () => {
+    const res = await request(server!).get('/api/diag')
+    assert.equal(res.status, 200)
+    assert.equal(res.body.name, 'koa-pg-react-boilerplate')
+  })
+
   await it('/api/params-example/foo', async () => {
     const res = await request(server!).get('/api/params-example/foo')
     assert.equal(res.status, 200)
@@ -22,7 +28,7 @@ void describe.skip('example', async () => {
   })
 
   await it('/api/hash', async () => {
-    const res = await request(server!).get('/api/guid')
+    const res = await request(server!).get('/api/hash')
     assert.equal(res.status, 200)
     assert.equal(typeof res.body, 'string')
   })

@@ -5,10 +5,9 @@ import { log } from './logger'
 import { setupDb } from './db'
 import { apiRoutes } from './routes'
 import { mid } from './mid'
+import { port, isTest } from './utils'
 
 export const app: Koa = new Koa()
-const isTest = process.env.NODE_ENV === 'test'
-const port = process.env.PORT ?? 3000
 
 void mid(app)
 app.use(apiRoutes.routes())

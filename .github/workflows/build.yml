@@ -14,6 +14,5 @@ jobs:
 
       - name: build
         run: |
-          echo skipped for now
-          # t=$(git describe --exact 2>/dev/null || git rev-parse --short=10 HEAD)
-          # docker build -t "example-$t" .
+          t=$(git describe --exact 2>/dev/null || git rev-parse --short=10 HEAD)
+          docker build -t "example-$t" .

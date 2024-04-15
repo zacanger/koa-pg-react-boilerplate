@@ -1,7 +1,7 @@
 {
   "name": "koa-pg-react-boilerplate",
   "description": "Example",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "private": true,
   "author": "Zac Anger <zac@zacanger.com> (https://zacanger.com)",
   "license": "MIT",
@@ -13,7 +13,7 @@
     "clean": "rimraf lib",
     "dev": "nodemon --watch src/server --exec tsx src/server/index.ts",
     "prebuild": "npm t",
-    "preversion": "run-s test build",
+    "preversion": "run-s build",
     "serve": "NODE_ENV=production node ./lib/server",
     "start": "./scripts/start.sh",
     "test": "NODE_ENV=test run-s test:ts test:lint test:client test:server",

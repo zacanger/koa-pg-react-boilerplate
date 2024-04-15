@@ -1,5 +1,6 @@
 import { Kysely, PostgresDialect } from 'kysely'
 import * as pg from 'pg'
+import { isTest, MockDb } from './utils'
 import type { Generated } from 'kysely'
 
 export interface Schema {
@@ -19,6 +20,10 @@ const getConn = () => ({
 })
 
 const getDb = () => {
+  if (isTest) {
+    return new MockDb()
+  }
+
   const dialect = new PostgresDialect({
     pool: new pg.Pool(getConn())
   })

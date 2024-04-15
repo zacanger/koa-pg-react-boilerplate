@@ -13,7 +13,5 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: latest
-      - run: |
-          echo skipped for now
-          # - run: npm ci
-          # - run: npm run build
+      - run: npm ci
+      - run: npm run build

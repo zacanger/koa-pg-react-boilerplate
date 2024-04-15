@@ -10,10 +10,9 @@ import { renderPage } from 'vike/server'
 import connect from 'koa-connect'
 import vite from 'vite'
 import { logger } from './logger'
+import { isTest, isProd, root } from './utils'
 import type * as Koa from 'koa'
 
-const root: string = process.cwd()
-const isProd = process.env.NODE_ENV === 'production'
 const errorHandler = async (
   ctx: Koa.Context,
   next: Koa.Next
@@ -27,7 +26,7 @@ const errorHandler = async (
   }
 }
 
-export const setupClientServer = async (
+const setupClientServer = async (
   app: Koa<Koa.DefaultState, Koa.DefaultContext>
 ) => {
   const router = new Router()
@@ -59,7 +58,9 @@ export const setupClientServer = async (
 export const mid = async (app: Koa<Koa.DefaultState, Koa.DefaultContext>) => {
   app.use(body())
   app.use(cookie())
-  await setupClientServer(app)
+  if (!isTest) {
+    await setupClientServer(app)
+  }
   app.use(helmet())
   app.use(lower)
   app.use(compression())
