@@ -9,3 +9,13 @@ Node service template with Koa, TS, React, Styled Components, Vite, PG, Kysely, 
 * To build, `npm run build`.
 
 [LICENSE](./LICENSE.md)
+
+# TODO:
+
+* Get HMR working again. See:
+    * https://github.com/axe-me/vite-plugin-node/blob/main/packages/vite-plugin-node/src/server/index.ts
+    * https://vitejs.dev/guide/api-hmr.html
+    * https://vike.dev/docker#dev
+    * https://vite-plugin-ssr.com/renderPage
+    * https://github.com/vikejs/vike/issues/1127
+    * https://github.com/vitejs/vite/issues/15297
