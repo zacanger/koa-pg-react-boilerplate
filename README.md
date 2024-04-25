@@ -12,6 +12,7 @@ Node service template with Koa, TS, React, Styled Components, Vite, PG, Kysely, 
 
 # TODO:
 
+* Finish Storybook setup
 * Get HMR working again. See:
     * https://github.com/axe-me/vite-plugin-node/blob/main/packages/vite-plugin-node/src/server/index.ts
     * https://vitejs.dev/guide/api-hmr.html
