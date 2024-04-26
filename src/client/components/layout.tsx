@@ -1,8 +1,8 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import { NavLink } from 'react-router-dom'
 import { Reset } from 'styled-reset'
-import styled, { createGlobalStyle }from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
+import { Link } from './link'
 
 const GlobalStyle = createGlobalStyle`
 :root {
@@ -34,23 +34,6 @@ body {
     filter: invert(100%);
   }
 }
-`
-
-const Link = styled(NavLink)`
-  display: block;
-  color: var(--primaryLight);
-  text-align: center;
-  padding: 12px;
-  text-decoration: none;
-
-  &.active {
-    background-color: var(--mainLight);
-    color: var(--primaryDark);
-  }
-
-  &:hover {
-    color: var(--primaryDark);
-  }
 `
 
 const Li = styled.li({

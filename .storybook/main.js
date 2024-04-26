@@ -1,22 +1,17 @@
 /** @type { import('@storybook/react-vite').StorybookConfig } */
-const config = {
-  stories: ['../src/client/**/*.story.@(js|jsx|ts|tsx)'],
-  staticDirs: ['../'],
-  addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
-  ],
+export default {
+  stories: ['../src/client/**/*.story.@(js|jsx|mjs|ts|tsx)'],
+  addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
+  core: {
+    builder: '@storybook/builder-vite',
+    disableTelemetry: true,
+  },
   framework: {
     name: '@storybook/react-vite',
     options: {},
   },
-  docs: {
-    autodocs: 'tag',
-  },
-  core: {
-    disableTelemetry: true,
+  async viteFinal(config) {
+    const { mergeConfig } = await import('vite')
+    return mergeConfig(config, {})
   },
 }
-
-export default config

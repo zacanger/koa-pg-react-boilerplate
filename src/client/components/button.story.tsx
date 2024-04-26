@@ -1,22 +1,26 @@
 import { Button } from './button'
+import type { Meta, StoryObj } from '@storybook/react'
 
-export default {
+const meta: Meta<typeof Button> = {
   title: 'Button',
   component: Button,
   tags: ['autodocs'],
-  argTypes: {
-    backgroundColor: { control: 'color' },
+}
+
+export default meta
+
+type Story = StoryObj<typeof Button>
+
+export const BgColor: Story = {
+  args: {
+    bg: 'red',
+    children: 'Click me',
   },
 }
 
-export const Bg = {
+export const FgColor: Story = {
   args: {
-    backgroundColor: 'red',
-  },
-}
-
-export const Fg = {
-  args: {
-    color: 'red',
+    fg: 'red',
+    children: 'Click me',
   },
 }
